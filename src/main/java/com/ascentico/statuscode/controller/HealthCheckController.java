@@ -1,5 +1,6 @@
 package com.ascentico.statuscode.controller;
 
+import com.ascentico.statuscode.model.HealthCheck;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,56 +10,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.ascentico.statuscode.model.Healthcheck;
 import com.ascentico.statuscode.model.MaintenanceType;
-import com.ascentico.statuscode.service.HealthcheckService;
+import com.ascentico.statuscode.service.HealthCheckService;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @RestController
-public class HealthcheckController {
+public class HealthCheckController {
 
     private static final Logger logger =
-            LoggerFactory.getLogger(HealthcheckController.class);
+            LoggerFactory.getLogger(HealthCheckController.class);
 
     private final AtomicBoolean maintenanceModeEnabled = new AtomicBoolean();
 
-    HealthcheckService healthcheckService;
-    Healthcheck lastHealthcheck = new Healthcheck();
+    HealthCheckService healthCheckService;
+    HealthCheck lastHealthCheck = new HealthCheck();
 
     @Autowired
-    public void setHealthcheckService(HealthcheckService healthcheckService) {
-        this.healthcheckService = healthcheckService;
+    public void setHealthCheckService(HealthCheckService healthCheckService) {
+        this.healthCheckService = healthCheckService;
     }
 
     @RequestMapping(value = "/healthcheck", method = RequestMethod.GET)
-    public ResponseEntity<Healthcheck> healthcheck(
+    public ResponseEntity<HealthCheck> healthCheck(
             @RequestParam(value = "maintenance", required = false) final String maintenanceMode) throws Exception {
         toggleMaintenanceMode(maintenanceMode);
 
         logger.debug("Entering healthcheck");
 
-        Healthcheck healthcheck = new Healthcheck();
-        healthcheck.setHealthcheckDateTime(LocalDateTime.now());
+        HealthCheck healthCheck = new HealthCheck();
+        healthCheck.setHealthCheckDateTime(LocalDateTime.now());
 
         if (maintenanceModeEnabled.get()) {
-            healthcheck.setHealthcheckResponse(MaintenanceType.MAINTENANCE.getDisplayName());
+            healthCheck.setHealthCheckResponse(MaintenanceType.MAINTENANCE.getDisplayName());
         } else if (isHealthy()) {
-            healthcheck.setHealthcheckResponse(MaintenanceType.OK.getDisplayName());
+            healthCheck.setHealthCheckResponse(MaintenanceType.OK.getDisplayName());
         } else {
-            healthcheck.setHealthcheckResponse(MaintenanceType.DOWN.getDisplayName());
+            healthCheck.setHealthCheckResponse(MaintenanceType.DOWN.getDisplayName());
         }
 
-        if (lastHealthcheck.getHealthcheckResponse() != healthcheck.getHealthcheckResponse()) {
-            healthcheckService.saveHealthcheck(healthcheck);
-            lastHealthcheck.setHealthcheckResponse(healthcheck.getHealthcheckResponse());
-            lastHealthcheck.setHealthcheckId(healthcheck.getHealthcheckId());
-            lastHealthcheck.setHealthcheckDateTime(healthcheck.getHealthcheckDateTime());
+        if (lastHealthCheck.getHealthCheckResponse() != healthCheck.getHealthCheckResponse()) {
+            healthCheckService.saveHealthCheck(healthCheck);
+            lastHealthCheck.setHealthCheckResponse(healthCheck.getHealthCheckResponse());
+            lastHealthCheck.setHealthCheckId(healthCheck.getHealthCheckId());
+            lastHealthCheck.setHealthCheckDateTime(healthCheck.getHealthCheckDateTime());
         }
 
 
-        return new ResponseEntity<>(lastHealthcheck, HttpStatus.OK);
+        return new ResponseEntity<>(lastHealthCheck, HttpStatus.OK);
     }
 
     private boolean isHealthy() {
@@ -66,7 +66,7 @@ public class HealthcheckController {
         boolean allIsHealthy;
 
         try {
-            allIsHealthy = healthcheckService.isHealthy();
+            allIsHealthy = healthCheckService.isHealthy();
         } catch (Exception e) {
             allIsHealthy = false;
         }
