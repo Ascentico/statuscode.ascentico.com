@@ -1,6 +1,7 @@
 package com.ascentico.statuscode.model;
 
 import org.hibernate.usertype.UserType;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -19,30 +20,30 @@ import static org.junit.Assert.*;
 public class MaintenanceTypeTest {
 
     /**
-     * Test the MaintenanceType OK enum.
+     * Test MaintenanceType.OK.getDisplayName().
      *
      */
     @Test
-    public void MaintenanceType_OK_Passes() throws Exception {
-        MaintenanceType.valueOf(MaintenanceType.OK.toString());
+    public void MaintenanceType_getDisplayName_OK_Passes() throws Exception {
+        Assert.assertEquals("Incorrect display name","OK", MaintenanceType.OK.getDisplayName());
     }
 
     /**
-     * Test the MaintenanceType DOWN enum.
+     * Test MaintenanceType.DOWN.getDisplayName().
      *
      */
     @Test
-    public void MaintenanceType_DOWN_Passes() throws Exception {
-        MaintenanceType.valueOf(MaintenanceType.DOWN.toString());
+    public void MaintenanceType_getDisplayName_DOWN_Passes() throws Exception {
+        Assert.assertEquals("Incorrect display name", "DOWN", MaintenanceType.DOWN.getDisplayName());
     }
 
     /**
-     * Test the MaintenanceType MAINTENANCE enum.
+     * Test MaintenanceType.MAINTENANCE.getDisplayName().
      *
      */
     @Test
-    public void MaintenanceType_MAINTENANCE_Passes() throws Exception {
-        MaintenanceType.valueOf(MaintenanceType.MAINTENANCE.toString());
+    public void MaintenanceType_getDisplayName_MAINTENANCE_Passes() throws Exception {
+        Assert.assertEquals("Incorrect display name", "MAINTENANCE", MaintenanceType.MAINTENANCE.getDisplayName());
     }
 
 }
