@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -31,14 +30,14 @@ public class StatusCodeServiceImplTest {
     private StatusCodeRepository mockStatusCodeRepository;
 
     @InjectMocks
-    private StatusCodeService statusCodeService = new StatusCodeServiceImpl();
+    private StatusCodeService mockedStatusCodeService = new StatusCodeServiceImpl();
 
-    private StatusCode statusCode1 = new StatusCode(226,
+    private StatusCode statusCode226 = new StatusCode(226,
             "IM Used",
             "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
             "https://tools.ietf.org/html/rfc3229");
 
-    private StatusCode statusCode2 = new StatusCode(208,
+    private StatusCode statusCode208 = new StatusCode(208,
             "Already Reported",
             "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.");
 
@@ -48,17 +47,16 @@ public class StatusCodeServiceImplTest {
 
         MockitoAnnotations.initMocks(this);
 
-        when(mockStatusCodeRepository.findDistinctByStatusCodeEquals(226)).thenReturn(statusCode1);
+        when(mockStatusCodeRepository.findDistinctByStatusCodeEquals(226)).thenReturn(statusCode226);
 
-        List<StatusCode> statusCodeList1 = new ArrayList<>();
-        statusCodeList1.add(statusCode1);
-        statusCodeList1.add(statusCode2);
-        System.out.println(statusCodeList1.size());
+        List<StatusCode> populatedStatusCodeList = new ArrayList<>();
+        populatedStatusCodeList.add(statusCode226);
+        populatedStatusCodeList.add(statusCode208);
 
-        List<StatusCode> statusCodeList2 = new ArrayList<>();
+        List<StatusCode> emptyStatusCodeList = new ArrayList<>();
 
-        when(mockStatusCodeRepository.findAllByStatusCodeStartsWith(2)).thenReturn(statusCodeList1);
-        when(mockStatusCodeRepository.findAllByStatusCodeStartsWith(7)).thenReturn(statusCodeList2);
+        when(mockStatusCodeRepository.findAllByStatusCodeStartsWith(2)).thenReturn(populatedStatusCodeList);
+        when(mockStatusCodeRepository.findAllByStatusCodeStartsWith(7)).thenReturn(emptyStatusCodeList);
 
     }
 
@@ -66,14 +64,11 @@ public class StatusCodeServiceImplTest {
      * Tests StatusCodeServiceImpl.findDistinctByStatusCodeEquals() with a valid StatusCode
      */
     @Test
-    public void StatusCodeServiceImpl_findDistinctByStatusCodeEquals_ValidStatusCode_Passes() throws Exception {
+    public void StatusCodeServiceImpl_findDistinctByStatusCodeEquals_ValidStatusCode_Passes() {
 
-        StatusCode statusCode = statusCodeService.findDistinctByStatusCodeEquals(226);
+        StatusCode foundStatusCode226 = mockedStatusCodeService.findDistinctByStatusCodeEquals(226);
 
-        Assert.assertEquals("StatusCodeServiceImpl.findDistinctByStatusCodeEquals() has failed as statusCode contains incorrect data!", 226, statusCode.getStatusCode());
-        Assert.assertEquals("StatusCodeServiceImpl.findDistinctByStatusCodeEquals() has failed as shortDescription contains incorrect data", "IM Used", statusCode.getShortDescription());
-        Assert.assertEquals("StatusCodeServiceImpl.findDistinctByStatusCodeEquals() has failed as longDescription contains incorrect data", "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.", statusCode.getLongDescription());
-        Assert.assertEquals("StatusCodeServiceImpl.findDistinctByStatusCodeEquals() has failed as rfcUri contains incorrect data!", "https://tools.ietf.org/html/rfc3229", statusCode.getRfcUri());
+        Assert.assertSame("StatusCode objects are not the same", statusCode226, foundStatusCode226);
 
     }
 
@@ -81,11 +76,11 @@ public class StatusCodeServiceImplTest {
      * Tests StatusCodeServiceImpl.findDistinctByStatusCodeEquals() with an invalid StatusCode
      */
     @Test
-    public void StatusCodeServiceImpl_findDistinctByStatusCodeEquals_InValidStatusCode_Passes() throws Exception {
+    public void StatusCodeServiceImpl_findDistinctByStatusCodeEquals_InValidStatusCode_Passes() {
 
-        StatusCode statusCode = statusCodeService.findDistinctByStatusCodeEquals(288);
+        StatusCode foundStatusCode288 = mockedStatusCodeService.findDistinctByStatusCodeEquals(288);
 
-        Assert.assertNull("StatusCodeServiceImpl.findDistinctByStatusCodeEquals() has failed as statusCode contains incorrect data!", statusCode);
+        Assert.assertNull("StatusCode object is not null", foundStatusCode288);
 
     }
 
@@ -93,11 +88,11 @@ public class StatusCodeServiceImplTest {
      * Tests StatusCodeServiceImpl.findAllByCategoryMember() with an valid category
      */
     @Test
-    public void StatusCodeServiceImpl_findAllByCategoryMember_ValidCategory_Passes() throws Exception {
+    public void StatusCodeServiceImpl_findAllByCategoryMember_ValidCategory_Passes() {
 
-        List<StatusCode> statusCodeList = statusCodeService.findAllByCategoryMember(Integer.toString(200));
+        List<StatusCode> foundStatusCodeList = mockedStatusCodeService.findAllByCategoryMember(Integer.toString(200));
 
-        Assert.assertEquals("StatusCodeServiceImpl.findAllByCategoryMember() has failed as statusCodeList contains incorrect number of records!", 2, statusCodeList.size());
+        Assert.assertEquals("foundStatusCodeList contains incorrect number of records", 2, foundStatusCodeList.size());
 
     }
 
@@ -105,11 +100,11 @@ public class StatusCodeServiceImplTest {
      * Tests StatusCodeServiceImpl.findAllByCategoryMember() with an invalid category
      */
     @Test
-    public void StatusCodeServiceImpl_findAllByCategoryMember_InValidCategory_Passes() throws Exception {
+    public void StatusCodeServiceImpl_findAllByCategoryMember_InValidCategory_Passes() {
 
-        List<StatusCode> statusCodeList = statusCodeService.findAllByCategoryMember(Integer.toString(700));
+        List<StatusCode> foundStatusCodeList = mockedStatusCodeService.findAllByCategoryMember(Integer.toString(700));
 
-        Assert.assertEquals("StatusCodeServiceImpl.findAllByCategoryMember() has failed as statusCodeList contains incorrect number of records!", 0, statusCodeList.size());
+        Assert.assertEquals("foundStatusCodeList contains incorrect number of records", 0, foundStatusCodeList.size());
 
     }
 
