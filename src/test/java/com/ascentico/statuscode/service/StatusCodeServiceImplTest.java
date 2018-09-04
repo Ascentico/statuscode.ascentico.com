@@ -90,7 +90,7 @@ public class StatusCodeServiceImplTest {
     @Test
     public void StatusCodeServiceImpl_findAllByCategoryMember_ValidCategory_Passes() {
 
-        List<StatusCode> foundStatusCodeList = mockedStatusCodeService.findAllByCategoryMember(Integer.toString(200));
+        List<StatusCode> foundStatusCodeList = mockedStatusCodeService.findAllByCategoryMember("200");
 
         Assert.assertEquals("foundStatusCodeList contains incorrect number of records", 2, foundStatusCodeList.size());
 
@@ -102,7 +102,7 @@ public class StatusCodeServiceImplTest {
     @Test
     public void StatusCodeServiceImpl_findAllByCategoryMember_InValidCategory_Passes() {
 
-        List<StatusCode> foundStatusCodeList = mockedStatusCodeService.findAllByCategoryMember(Integer.toString(700));
+        List<StatusCode> foundStatusCodeList = mockedStatusCodeService.findAllByCategoryMember("700");
 
         Assert.assertEquals("foundStatusCodeList contains incorrect number of records", 0, foundStatusCodeList.size());
 
