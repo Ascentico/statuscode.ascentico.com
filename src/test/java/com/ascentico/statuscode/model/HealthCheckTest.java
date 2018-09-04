@@ -48,4 +48,18 @@ public class HealthCheckTest {
 
     }
 
+    @Test
+    public void HealthCheck_toString_Passes() throws Exception {
+        
+        HealthCheck healthCheckUnderTest = new HealthCheck();
+        healthCheckUnderTest.setHealthCheckId(1L);
+        healthCheckUnderTest.setHealthCheckResponse("OK");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        healthCheckUnderTest.setHealthCheckDateTime(localDateTime);
+
+        String expectedString = "HealthCheck{healthCheckId=1, healthCheckDateTime=" + localDateTime + ", healthCheckResponse='OK'}";
+
+        Assert.assertEquals("HealthCheck.toString() has failed",expectedString, healthCheckUnderTest.toString());
+    }
+
 }
