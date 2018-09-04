@@ -50,7 +50,7 @@ public class HealthCheckTest {
 
     @Test
     public void HealthCheck_toString_Passes() throws Exception {
-        
+
         HealthCheck healthCheckUnderTest = new HealthCheck();
         healthCheckUnderTest.setHealthCheckId(1L);
         healthCheckUnderTest.setHealthCheckResponse("OK");

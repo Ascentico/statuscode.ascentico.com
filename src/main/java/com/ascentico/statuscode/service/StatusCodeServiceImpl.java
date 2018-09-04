@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * The StatusCodeServiceImpl class implements the
+ * StatusCodeService interface.
+ *
+ * @author  Andy McCall
+ * @version 0.1
+ * @since   2018-08-31
+ */
+
 @Service("statusCodeService")
 @Transactional
 public class StatusCodeServiceImpl implements StatusCodeService {
@@ -42,7 +51,5 @@ public class StatusCodeServiceImpl implements StatusCodeService {
 
         return statusCodeList;
     }
-
-
 
 }

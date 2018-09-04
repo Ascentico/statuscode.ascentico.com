@@ -7,6 +7,15 @@ import com.ascentico.statuscode.repository.HealthCheckRepository;
 
 import javax.transaction.Transactional;
 
+/**
+ * The HealthCheckServiceImpl class implements the
+ * HealthCheckService interface.
+ *
+ * @author  Andy McCall
+ * @version 0.1
+ * @since   2018-08-31
+ */
+
 @Service("healthCheckService")
 @Transactional
 public class HealthCheckServiceImpl implements HealthCheckService {
