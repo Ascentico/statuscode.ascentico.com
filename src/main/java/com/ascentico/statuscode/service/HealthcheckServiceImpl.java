@@ -2,26 +2,26 @@ package com.ascentico.statuscode.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ascentico.statuscode.model.Healthcheck;
-import com.ascentico.statuscode.repository.HealthcheckRepository;
+import com.ascentico.statuscode.model.HealthCheck;
+import com.ascentico.statuscode.repository.HealthCheckRepository;
 
 import javax.transaction.Transactional;
 
-@Service("healthcheckService")
+@Service("healthCheckService")
 @Transactional
-public class HealthcheckServiceImpl implements HealthcheckService {
+public class HealthCheckServiceImpl implements HealthCheckService {
 
     @Autowired
-    HealthcheckRepository healthcheckRepository;
+    HealthCheckRepository healthCheckRepository;
 
     @Override
-    public void saveHealthcheck(Healthcheck healthcheck) {
-        healthcheckRepository.save(healthcheck);
+    public void saveHealthCheck(HealthCheck healthCheck) {
+        healthCheckRepository.save(healthCheck);
     }
 
     @Override
     public boolean isHealthy() {
-        return (healthcheckRepository.findDistinctByHealthcheckIdEquals(1L).getHealthcheckId() == 1L);
+        return (healthCheckRepository.findDistinctByHealthCheckIdEquals(1L).getHealthCheckId() == 1L);
     }
 
 }

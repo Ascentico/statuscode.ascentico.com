@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static java.lang.Math.pow;
-
 @Service("statusCodeService")
 @Transactional
 public class StatusCodeServiceImpl implements StatusCodeService {

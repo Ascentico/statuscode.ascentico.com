@@ -4,58 +4,58 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "sc_healthcheck")
-public class Healthcheck {
+@Table(name = "sc_healthCheck")
+public class HealthCheck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "healthcheckId", columnDefinition = "serial")
-    private Long healthcheckId;
+    @Column(name = "healthCheckId", columnDefinition = "serial")
+    private Long healthCheckId;
 
-    @Column(name = "healthcheckDateTime")
-    private LocalDateTime healthcheckDateTime;
+    @Column(name = "healthCheckDateTime")
+    private LocalDateTime healthCheckDateTime;
 
-    @Column(name = "healthcheckResponse", length = 30)
-    private String healthcheckResponse;
+    @Column(name = "healthCheckResponse", length = 30)
+    private String healthCheckResponse;
 
-    public Healthcheck() {
+    public HealthCheck() {
 
     }
 
-    public Healthcheck(String healthcheckResponse) {
-        this.healthcheckResponse = healthcheckResponse;
+    public HealthCheck(String healthCheckResponse) {
+        this.setHealthCheckResponse(healthCheckResponse);
     }
 
-    public Long getHealthcheckId() {
-        return healthcheckId;
+    public Long getHealthCheckId() {
+        return healthCheckId;
     }
 
-    public void setHealthcheckId(Long healthcheckId) {
-        this.healthcheckId = healthcheckId;
+    public void setHealthCheckId(Long healthCheckId) {
+        this.healthCheckId = healthCheckId;
     }
 
-    public LocalDateTime getHealthcheckDateTime() {
-        return healthcheckDateTime;
+    public LocalDateTime getHealthCheckDateTime() {
+        return healthCheckDateTime;
     }
 
-    public void setHealthcheckDateTime(LocalDateTime healthcheckDateTime) {
-        this.healthcheckDateTime = healthcheckDateTime;
+    public void setHealthCheckDateTime(LocalDateTime healthCheckDateTime) {
+        this.healthCheckDateTime = healthCheckDateTime;
     }
 
-    public String getHealthcheckResponse() {
-        return healthcheckResponse;
+    public String getHealthCheckResponse() {
+        return healthCheckResponse;
     }
 
-    public void setHealthcheckResponse(String healthcheckResponse) {
-        this.healthcheckResponse = healthcheckResponse;
+    public void setHealthCheckResponse(String healthCheckResponse) {
+        this.healthCheckResponse = healthCheckResponse;
     }
 
     @Override
     public String toString() {
-        return "Healthcheck{" +
-                "healthcheckId=" + healthcheckId +
-                ", healthcheckDateTime=" + healthcheckDateTime +
-                ", healthcheckResponse='" + healthcheckResponse + '\'' +
+        return "HealthCheck{" +
+                "healthCheckId=" + healthCheckId +
+                ", healthCheckDateTime=" + healthCheckDateTime +
+                ", healthCheckResponse='" + healthCheckResponse + '\'' +
                 '}';
     }
 }

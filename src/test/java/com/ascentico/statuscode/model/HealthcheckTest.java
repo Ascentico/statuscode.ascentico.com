@@ -6,45 +6,45 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 
-public class HealthcheckTest {
+public class HealthCheckTest {
 
     @Before
     public void setUp() throws Exception {
     }
 
     @Test
-    public void Ping_DefaultConstructor_Passes() throws Exception {
-        Healthcheck healthcheckUnderTest = new Healthcheck();
-        Assert.assertNull("Healthcheck() has failed as pingResponse contains data!", healthcheckUnderTest.getHealthcheckResponse());
+    public void HealthCheck_DefaultConstructor_Passes() throws Exception {
+        HealthCheck healthCheckUnderTest = new HealthCheck();
+        Assert.assertNull("HealthCheck() has failed as HealthCheckResponse contains data!", healthCheckUnderTest.getHealthCheckResponse());
     }
 
     @Test
-    public void Ping_Constructor_Passes() throws Exception {
-        Healthcheck healthcheckUnderTest = new Healthcheck("OK");
-        Assert.assertEquals("Healthcheck() has failed as healthcheckResponse contains incorrect data!", "OK", healthcheckUnderTest.getHealthcheckResponse());
+    public void HealthCheck_Constructor_Passes() throws Exception {
+        HealthCheck healthCheckUnderTest = new HealthCheck("OK");
+        Assert.assertEquals("HealthCheck() has failed as healthCheckResponse contains incorrect data!", "OK", healthCheckUnderTest.getHealthCheckResponse());
     }
 
     @Test
-    public void Ping_setgetPingId_Passes() throws Exception {
-        Healthcheck healthcheckUnderTest = new Healthcheck();
-        healthcheckUnderTest.setHealthcheckId(99L);
-        Assert.assertEquals("Healthcheck.setHealthcheckId has failed!", 99, (long)healthcheckUnderTest.getHealthcheckId());
+    public void HealthCheck_setgetHealthCheckId_Passes() throws Exception {
+        HealthCheck healthCheckUnderTest = new HealthCheck();
+        healthCheckUnderTest.setHealthCheckId(99L);
+        Assert.assertEquals("HealthCheck.setHealthCheckId has failed!", 99, (long) healthCheckUnderTest.getHealthCheckId());
     }
 
     @Test
-    public void Ping_setgetPingResponse_Passes() throws Exception {
-        Healthcheck healthcheckUnderTest = new Healthcheck();
-        healthcheckUnderTest.setHealthcheckResponse("OK");
-        Assert.assertEquals("Healthcheck().setgetPingResponse has failed!", "OK" , healthcheckUnderTest.getHealthcheckResponse());
+    public void HealthCheck_setgetHealthCheckResponse_Passes() throws Exception {
+        HealthCheck healthCheckUnderTest = new HealthCheck();
+        healthCheckUnderTest.setHealthCheckResponse("OK");
+        Assert.assertEquals("HealthCheck().setgetHealthCheckResponse has failed!", "OK" , healthCheckUnderTest.getHealthCheckResponse());
     }
 
     @Test
-    public void Ping_setgetPingDateTime_Passes() throws Exception {
-        Healthcheck healthcheckUnderTest = new Healthcheck();
+    public void HealthCheck_setgetHealthCheckDateTime_Passes() throws Exception {
+        HealthCheck healthCheckUnderTest = new HealthCheck();
         LocalDateTime localDateTime = LocalDateTime.now();
-        healthcheckUnderTest.setHealthcheckDateTime(localDateTime);
+        healthCheckUnderTest.setHealthCheckDateTime(localDateTime);
 
-        Assert.assertEquals("Healthcheck().setHealthcheckDateTime has failed!", localDateTime, healthcheckUnderTest.getHealthcheckDateTime());
+        Assert.assertEquals("HealthCheck().setHealthCheckDateTime has failed!", localDateTime, healthCheckUnderTest.getHealthCheckDateTime());
 
     }
 

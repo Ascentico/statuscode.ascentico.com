@@ -10,7 +10,6 @@ public class StatusCodeTest {
 
     private StatusCode statusCodeUnderTest;
 
-
     /**
      * Sets up objects needed for the tests.
      */
@@ -44,12 +43,34 @@ public class StatusCodeTest {
      *         constructor.
      */
     @Test
-    public void StatusCode_Constructor_Passes() throws Exception {
-        StatusCode statusCodeUnderTest1 = new StatusCode(226, "IM Used", "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.", "https://tools.ietf.org/html/rfc3229");
+    public void StatusCode_Constructor1_Passes() throws Exception {
+        StatusCode statusCodeUnderTest1 = new StatusCode(226,
+                                                         "IM Used",
+                "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
+                "https://tools.ietf.org/html/rfc3229");
+
         Assert.assertEquals("StatusCode() has failed as statusCode contains incorrect data!", 226, statusCodeUnderTest1.getStatusCode());
         Assert.assertEquals("StatusCode() has failed as shortDescription contains incorrect data", "IM Used", statusCodeUnderTest1.getShortDescription());
         Assert.assertEquals("StatusCode() has failed as longDescription contains incorrect data", "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.", statusCodeUnderTest1.getLongDescription());
         Assert.assertEquals("StatusCode() has failed as rfcUri contains incorrect data!", "https://tools.ietf.org/html/rfc3229", statusCodeUnderTest1.getRfcUri());
+    }
+
+    /**
+     * Test the StatusCode Constructor.
+     * @result The StatusCode object will be constructed with no errors,
+     *         and all accessor methods return the data passed into the
+     *         constructor.
+     */
+    @Test
+    public void StatusCode_Constructor2_Passes() throws Exception {
+        StatusCode statusCodeUnderTest1 = new StatusCode(208,
+                                                         "Already Reported",
+                                                         "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.");
+
+        Assert.assertEquals("StatusCode() has failed as statusCode contains incorrect data!", 208, statusCodeUnderTest1.getStatusCode());
+        Assert.assertEquals("StatusCode() has failed as shortDescription contains incorrect data", "Already Reported", statusCodeUnderTest1.getShortDescription());
+        Assert.assertEquals("StatusCode() has failed as longDescription contains incorrect data", "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.", statusCodeUnderTest1.getLongDescription());
+        Assert.assertNull("StatusCode() has failed as rfcUri contains incorrect data!", statusCodeUnderTest1.getRfcUri());
     }
 
     @Test

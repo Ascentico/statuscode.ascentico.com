@@ -1,18 +1,18 @@
 package com.ascentico.statuscode.service;
 
-import com.ascentico.statuscode.model.Healthcheck;
+import com.ascentico.statuscode.model.HealthCheck;
 
 /**
- * The HealthcheckService interface
+ * The HealthCheckService interface
  *
  * @author  Andy McCall
  * @version 0.1
  * @since   2018-07-03
  */
 
-public interface HealthcheckService {
+public interface HealthCheckService {
 
-    public void saveHealthcheck(Healthcheck healthcheck);
+    public void saveHealthCheck(HealthCheck healthCheck);
     public boolean isHealthy();
 
 }

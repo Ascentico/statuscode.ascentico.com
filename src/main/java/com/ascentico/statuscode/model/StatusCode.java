@@ -33,6 +33,12 @@ public class StatusCode {
 
     }
 
+    public StatusCode(int statusCode, String shortDescription, String longDescription) {
+        this.setStatusCode(statusCode);
+        this.setShortDescription(shortDescription);
+        this.setLongDescription(longDescription);
+    }
+
     public StatusCode(int statusCode, String shortDescription, String longDescription, String rfcUri) {
         this.setStatusCode(statusCode);
         this.setShortDescription(shortDescription);
