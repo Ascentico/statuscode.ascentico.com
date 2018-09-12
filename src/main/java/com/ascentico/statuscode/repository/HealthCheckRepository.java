@@ -1,6 +1,7 @@
 package com.ascentico.statuscode.repository;
 
 import com.ascentico.statuscode.model.HealthCheck;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface HealthCheckRepository extends CrudRepository<HealthCheck, Long> {
 
-    public HealthCheck findDistinctByHealthCheckIdEquals(Long healthCheckId);
+    @Query(value = "SELECT * FROM public.sc_health_check ORDER BY health_check_id DESC LIMIT 1", nativeQuery = true)
+    public HealthCheck getLastHealthCheck();
 
 }

@@ -52,4 +52,19 @@ public class StatusCodeServiceImpl implements StatusCodeService {
         return statusCodeList;
     }
 
+    @Override
+    public List<StatusCode> findAllStatusCodes() {
+        return statusCodeRepository.findAllStatusCodes();
+    }
+
+    @Override
+    public StatusCode findRandomStatusCode() {
+        return statusCodeRepository.findRandomStatusCode();
+    }
+
+    @Override
+    public boolean ifExists(int statusCode) {
+        return statusCodeRepository.ifExists(statusCode);
+    }
+
 }

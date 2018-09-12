@@ -25,7 +25,6 @@ public class HealthCheckController {
     private final AtomicBoolean maintenanceModeEnabled = new AtomicBoolean();
 
     HealthCheckService healthCheckService;
-    HealthCheck lastHealthCheck = new HealthCheck();
 
     @Autowired
     public void setHealthCheckService(HealthCheckService healthCheckService) {
@@ -39,39 +38,24 @@ public class HealthCheckController {
 
         logger.debug("Entering healthcheck");
 
-        HealthCheck healthCheck = new HealthCheck();
-        healthCheck.setHealthCheckDateTime(LocalDateTime.now());
+        HealthCheck healthCheck = healthCheckService.getLastHealthCheck();
 
-        if (maintenanceModeEnabled.get()) {
-            healthCheck.setHealthCheckResponse(MaintenanceType.MAINTENANCE.getDisplayName());
-        } else if (isHealthy()) {
-            healthCheck.setHealthCheckResponse(MaintenanceType.OK.getDisplayName());
-        } else {
-            healthCheck.setHealthCheckResponse(MaintenanceType.DOWN.getDisplayName());
+        if (maintenanceModeEnabled.get() && healthCheck.getHealthCheckResponse() != MaintenanceType.MAINTENANCE.getDisplayName()) {
+            HealthCheck newHealthCheck = new HealthCheck();
+            newHealthCheck.setHealthCheckResponse(MaintenanceType.MAINTENANCE.getDisplayName());
+            newHealthCheck.setHealthCheckDateTime(LocalDateTime.now());
+            healthCheckService.saveHealthCheck(newHealthCheck);
+            healthCheck = newHealthCheck;
         }
 
-        if (lastHealthCheck.getHealthCheckResponse() != healthCheck.getHealthCheckResponse()) {
-            healthCheckService.saveHealthCheck(healthCheck);
-            lastHealthCheck.setHealthCheckResponse(healthCheck.getHealthCheckResponse());
-            lastHealthCheck.setHealthCheckId(healthCheck.getHealthCheckId());
-            lastHealthCheck.setHealthCheckDateTime(healthCheck.getHealthCheckDateTime());
+        if (healthCheck == null) {
+            logger.debug("HealthCheck is null, DB is inaccessible");
+            healthCheck.setHealthCheckId(-1L);
+            healthCheck.setHealthCheckDateTime(LocalDateTime.now());
+            healthCheck.setHealthCheckResponse(MaintenanceType.DB_DOWN.getDisplayName());
         }
 
-
-        return new ResponseEntity<>(lastHealthCheck, HttpStatus.OK);
-    }
-
-    private boolean isHealthy() {
-
-        boolean allIsHealthy;
-
-        try {
-            allIsHealthy = healthCheckService.isHealthy();
-        } catch (Exception e) {
-            allIsHealthy = false;
-        }
-
-        return allIsHealthy;
+        return new ResponseEntity<>(healthCheck, HttpStatus.OK);
     }
 
     private void toggleMaintenanceMode(final String maintenanceMode) throws Exception {

@@ -12,7 +12,7 @@ public class SwaggerConfigurationTest {
     public void SwaggerConfiguration_verifyDocket_Passes() throws Exception {
         Docket docket = new SwaggerConfiguration().api();
         Assert.assertNotNull(docket);
-        Assert.assertEquals("statuscode-service-api", docket.getGroupName());
+        Assert.assertEquals("statuscode-rest-api", docket.getGroupName());
     }
 
 }

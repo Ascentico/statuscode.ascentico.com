@@ -29,8 +29,8 @@ public class HealthCheckServiceImpl implements HealthCheckService {
     }
 
     @Override
-    public boolean isHealthy() {
-        return (healthCheckRepository.findDistinctByHealthCheckIdEquals(1L).getHealthCheckId() == 1L);
+    public HealthCheck getLastHealthCheck() {
+        return healthCheckRepository.getLastHealthCheck();
     }
 
 }

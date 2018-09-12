@@ -19,7 +19,7 @@ public class SwaggerConfiguration {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("statuscode-service-api")
+                .groupName("statuscode-rest-api")
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(regex("/api/.*"))

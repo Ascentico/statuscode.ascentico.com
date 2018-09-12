@@ -16,6 +16,9 @@ public interface StatusCodeService {
 
     public void saveStatusCode(StatusCode statusCode);
     public StatusCode findDistinctByStatusCodeEquals(int statusCode);
+    public List<StatusCode> findAllStatusCodes();
+    public StatusCode findRandomStatusCode();
+    public boolean ifExists(int statusCode);
     public List<StatusCode> findAllByCategoryMember(String requestedCategory);
 
 }

@@ -13,6 +13,6 @@ import com.ascentico.statuscode.model.HealthCheck;
 public interface HealthCheckService {
 
     public void saveHealthCheck(HealthCheck healthCheck);
-    public boolean isHealthy();
+    public HealthCheck getLastHealthCheck();
 
 }
