@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4201")
 @RequestMapping("/api/v1/")
 public class StatusCodeController {
 
@@ -94,7 +93,7 @@ public class StatusCodeController {
     }
 
     @ApiOperation(value = "Read a random HTTP status code", notes = "Will returns a valid random HTTP Status Code")
-    @RequestMapping(value = "/random/status", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/status/random", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public @ResponseBody
     ResponseEntity<StatusCode> getRandomStatusCode() {
 
