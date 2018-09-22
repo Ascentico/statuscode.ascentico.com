@@ -2,6 +2,7 @@ package com.ascentico.statuscode.service;
 
 import com.ascentico.statuscode.model.StatusCode;
 import com.ascentico.statuscode.repository.StatusCodeRepository;
+import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,12 +33,12 @@ public class StatusCodeServiceImplTest {
     @InjectMocks
     private StatusCodeService mockedStatusCodeService = new StatusCodeServiceImpl();
 
-    private StatusCode statusCode226 = new StatusCode(226,
+    private final StatusCode statusCode226 = new StatusCode(226,
             "IM Used",
             "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
             "https://tools.ietf.org/html/rfc3229");
 
-    private StatusCode statusCode208 = new StatusCode(208,
+    private final StatusCode statusCode208 = new StatusCode(208,
             "Already Reported",
             "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.");
 
