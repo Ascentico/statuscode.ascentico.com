@@ -1,6 +1,7 @@
 package com.ascentico.statuscode.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.base.Objects;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -76,6 +77,18 @@ public class StatusCode {
 
     public void setRfcUri(String rfcUri) {
         this.rfcUri = rfcUri;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StatusCode statusToCompareCode = (StatusCode) o;
+        return (Objects.equal(statusCode, statusToCompareCode.statusCode) &&
+                Objects.equal(shortDescription, statusToCompareCode.shortDescription) &&
+                Objects.equal(longDescription, statusToCompareCode.longDescription) &&
+                Objects.equal(rfcUri, statusToCompareCode.rfcUri));
     }
 
     @Override

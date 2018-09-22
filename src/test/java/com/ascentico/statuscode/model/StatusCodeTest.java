@@ -102,6 +102,24 @@ public class StatusCodeTest {
     }
 
     @Test
+    public void StatusCode_equals_Passes() {
+        StatusCode testStatusCode = new StatusCode();
+        testStatusCode.setStatusCode(226);
+        testStatusCode.setShortDescription("IM Used");
+        testStatusCode.setLongDescription("The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.");
+        testStatusCode.setRfcUri("https://tools.ietf.org/html/rfc3229");
+
+        Assert.assertEquals("StatusCode().equals has failed as objects are not equal!",
+                testStatusCode,
+                statusCodeUnderTest);
+
+        testStatusCode.setStatusCode(300);
+        Assert.assertNotEquals("StatusCode().equals has failed as objects are equal!",
+                testStatusCode,
+                statusCodeUnderTest);
+    }
+
+    @Test
     public void StatusCode_toString_Passes() {
         Assert.assertEquals( "StatusCode.toString() has failed",
                 "StatusCode{statusCode=226, shortDescription='IM Used', longDescription='The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.'}",
