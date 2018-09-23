@@ -117,18 +117,8 @@ public class StatusCodeController {
     public @ResponseBody
     ResponseEntity<StatusCodeValidationWrapper> validateStatusCode(@PathVariable int statusCodeToValidate) {
 
-        StatusCode statusCode = new StatusCode();
-        Boolean isValid = false;
-
-        if (statusCodeService.ifExists(statusCodeToValidate)) {
-            statusCode = statusCodeService.findDistinctByStatusCodeEquals(statusCodeToValidate);
-            isValid = true;
-        } else {
-            statusCode.setStatusCode(statusCodeToValidate);
-        }
-
         StatusCodeValidationWrapper statusCodeValidationWrapper =
-                new StatusCodeValidationWrapper(statusCode, isValid);
+                new StatusCodeValidationWrapper(statusCodeService.findDistinctByStatusCodeEquals(statusCodeToValidate));
 
         ResponseEntity response = new ResponseEntity<>(statusCodeValidationWrapper, HttpStatus.OK);
 

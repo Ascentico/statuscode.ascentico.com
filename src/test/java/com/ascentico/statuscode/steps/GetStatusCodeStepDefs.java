@@ -9,6 +9,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import cucumber.api.java.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @WebAppConfiguration
+@Ignore
 public class GetStatusCodeStepDefs {
 
     private MockMvc mockMvc;
@@ -74,8 +76,8 @@ public class GetStatusCodeStepDefs {
     }
 
     @Then("the user should see {int} in the response")
-    public void theUserShouldSeeInTheResponse(Integer int1) {
-        Assert.assertEquals("Status Code does not match!", int1, resultStatusCode);
+    public void theUserShouldSeeInTheResponse(Integer expectedStatusCode) {
+        Assert.assertEquals("Status Code does not match!", expectedStatusCode, resultStatusCode);
     }
 
     @Then("the user should see a HTTP {int} response")
