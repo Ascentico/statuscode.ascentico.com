@@ -44,6 +44,18 @@ public class StatusCodeOnlyListWrapperTest {
     }
 
     @Test
+    public void StatusCodeOnlyListWrapper_iterator_Passes() {
+        int count=0;
+        for (Integer status : statusCodeOnlyListWrapperUnderTest) {
+            count++;
+        }
+
+        Assert.assertEquals("StatusCodeOnlyListWrapper.iterator() has failed!",
+                statusCodeOnlyListWrapperUnderTest.getStatusCodes().size(),
+                count);
+    }
+
+    @Test
     public void StatusCodeOnlyListWrapper_toString_Passes() {
         Assert.assertEquals( "StatusCodeOnlyListWrapper.toString() has failed!",
                 "StatusCodeOnlyListWrapper{statusCodeList=[100, 101, 102, 103]}",
