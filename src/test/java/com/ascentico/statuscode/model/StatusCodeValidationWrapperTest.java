@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 public class StatusCodeValidationWrapperTest {
 
     StatusCode statusCode;
+    StatusCode nullStatusCode;
 
     /**
      * Sets up objects needed for the tests.
@@ -50,7 +51,7 @@ public class StatusCodeValidationWrapperTest {
     }
 
     @Test
-    public void StatusCodeValidationWrapper_setgetStatusCode_Passes() {
+    public void StatusCodeValidationWrapper_setgetValidStatusCode_Passes() {
         StatusCodeValidationWrapper statusCodeValidationWrapperUnderTest =
                 new StatusCodeValidationWrapper();
 
@@ -58,6 +59,20 @@ public class StatusCodeValidationWrapperTest {
 
         Assert.assertEquals("StatusCodeValidationWrapper() has failed as statusCode contains incorrect data!", statusCode, statusCodeValidationWrapperUnderTest.getStatusCode());
         Assert.assertTrue("StatusCodeValidationWrapper() has failed as valid is not true!",
+                statusCodeValidationWrapperUnderTest.isValid());
+    }
+
+    @Test
+    public void StatusCodeValidationWrapper_setgetNullStatusCode_Passes() {
+        StatusCodeValidationWrapper statusCodeValidationWrapperUnderTest =
+                new StatusCodeValidationWrapper();
+
+        statusCodeValidationWrapperUnderTest.setStatusCode(nullStatusCode);
+
+        Assert.assertEquals("StatusCodeValidationWrapper() has failed as statusCode contains incorrect data!",
+                new StatusCode(),
+                statusCodeValidationWrapperUnderTest.getStatusCode());
+        Assert.assertFalse("StatusCodeValidationWrapper() has failed as valid is not false!",
                 statusCodeValidationWrapperUnderTest.isValid());
     }
 
