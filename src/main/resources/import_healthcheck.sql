@@ -1,1 +1,0 @@
-INSERT INTO public.sc_health_check (health_check_id, health_check_date_time, health_check_response) VALUES (1, '2018-01-01 00:00:00.000000', 'OK');
