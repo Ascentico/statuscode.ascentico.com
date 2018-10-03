@@ -27,13 +27,24 @@ public class SwaggerConfiguration {
                 .apiInfo(apiInfo());
     }
 
+    @Bean
+    public Docket server() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("server-error-codes")
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(regex("/error"))
+                .build()
+                .apiInfo(apiInfo());
+    }
+
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "StatusCode REST API",
                 "This REST API allows you to search for HTTP status codes.",
                 "API TOS",
                 "Terms of service",
-                new Contact("Andy McCall", "ascentico.com", "andy.mccall@ascentico.com"),
+                new Contact("Andy McCall", "https://ascentico.com", "andy.mccall@ascentico.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0",
                 Collections.emptyList());
