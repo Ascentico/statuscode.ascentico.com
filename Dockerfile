@@ -7,4 +7,4 @@ RUN chmod +x start.sh
 COPY src/docker/wait-for-port.sh wait-for-port.sh
 RUN chmod +x wait-for-port.sh
 EXPOSE 8080
-ENTRYPOINT ["./start.sh"]
+ENTRYPOINT ["./start.sh", "$@"]
