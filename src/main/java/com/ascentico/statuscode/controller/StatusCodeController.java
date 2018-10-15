@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("${controller.statuscode.request-mapping-base}")
+// TODO: Fix mapping via properties file
+//@RequestMapping("${controller.statuscode.request-mapping-base}")
+@RequestMapping("api/v1/")
 public class StatusCodeController {
 
     private static final Logger logger =

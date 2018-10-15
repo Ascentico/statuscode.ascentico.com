@@ -6,6 +6,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Ignore;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -13,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+@Ignore
 public class GetStatusCodeCategoryStepDefs {
 
     private MockMvc mockMvc;
