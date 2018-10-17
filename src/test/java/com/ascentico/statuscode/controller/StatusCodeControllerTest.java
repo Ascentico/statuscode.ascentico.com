@@ -22,6 +22,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,17 +50,18 @@ public class StatusCodeControllerTest {
             "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
             "https://tools.ietf.org/html/rfc3229");
 
+    private List<StatusCode> statusCodeList = new ArrayList<>();
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        when(mockStatusCodeService.findDistinctByStatusCodeEquals(226)).thenReturn(statusCode226);
+        statusCodeList.add(statusCode226);
+        when(mockStatusCodeService.findByStatusCodeEquals(226)).thenReturn(statusCodeList);
         mockMvc = MockMvcBuilders.standaloneSetup(mockedStatusCodeController).build();
     }
 
     @Test
     public void StatusCodeController_getStatusCode_Passes() throws Exception {
-
-        System.out.println("Hmmmm....");
 
         MvcResult result = mockMvc.perform(get("/api/v1/status/" + 226))
                 .andExpect(status().isOk())

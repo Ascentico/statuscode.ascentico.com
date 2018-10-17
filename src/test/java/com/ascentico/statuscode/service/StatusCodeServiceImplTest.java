@@ -42,13 +42,16 @@ public class StatusCodeServiceImplTest {
             "Already Reported",
             "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.");
 
+    private List<StatusCode> statusCodeList = new ArrayList<>();
 
     @Before
     public void setUp() throws Exception {
 
         MockitoAnnotations.initMocks(this);
 
-        when(mockStatusCodeRepository.findDistinctByStatusCodeEquals(226)).thenReturn(statusCode226);
+        statusCodeList.add(statusCode226);
+
+        when(mockStatusCodeRepository.findByStatusCodeEquals(226)).thenReturn(statusCodeList);
 
         List<StatusCode> populatedStatusCodeList = new ArrayList<>();
         populatedStatusCodeList.add(statusCode226);
@@ -65,11 +68,11 @@ public class StatusCodeServiceImplTest {
      * Tests StatusCodeServiceImpl.findDistinctByStatusCodeEquals() with a valid StatusCode
      */
     @Test
-    public void StatusCodeServiceImpl_findDistinctByStatusCodeEquals_ValidStatusCode_Passes() {
+    public void StatusCodeServiceImpl_findByStatusCodeEquals_ValidStatusCode_Passes() {
 
-        StatusCode foundStatusCode226 = mockedStatusCodeService.findDistinctByStatusCodeEquals(226);
+        List<StatusCode> foundStatusCode226 = mockedStatusCodeService.findByStatusCodeEquals(226);
 
-        Assert.assertSame("StatusCode objects are not the same", statusCode226, foundStatusCode226);
+        Assert.assertSame("StatusCode objects are not the same", statusCodeList, foundStatusCode226);
 
     }
 
@@ -77,11 +80,12 @@ public class StatusCodeServiceImplTest {
      * Tests StatusCodeServiceImpl.findDistinctByStatusCodeEquals() with an invalid StatusCode
      */
     @Test
-    public void StatusCodeServiceImpl_findDistinctByStatusCodeEquals_InValidStatusCode_Passes() {
+    public void StatusCodeServiceImpl_findByStatusCodeEquals_InValidStatusCode_Passes() {
 
-        StatusCode foundStatusCode288 = mockedStatusCodeService.findDistinctByStatusCodeEquals(288);
+        List<StatusCode> foundStatusCode288 = mockedStatusCodeService.findByStatusCodeEquals(288);
+        List<StatusCode> emptyList = new ArrayList<>();
 
-        Assert.assertNull("StatusCode object is not null", foundStatusCode288);
+        Assert.assertEquals("StatusCodeList contains StatusCodes!", emptyList, foundStatusCode288);
 
     }
 

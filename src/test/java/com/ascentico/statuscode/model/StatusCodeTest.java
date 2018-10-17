@@ -122,7 +122,7 @@ public class StatusCodeTest {
     @Test
     public void StatusCode_toString_Passes() {
         Assert.assertEquals( "StatusCode.toString() has failed",
-                "StatusCode{statusCode=226, shortDescription='IM Used', longDescription='The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.'}",
+                "StatusCode{statusCodeId=0, statusCode=226, shortDescription='IM Used', longDescription='The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.', rfcUri='https://tools.ietf.org/html/rfc3229', statusCodeType=null, software=null}",
                 statusCodeUnderTest.toString());
     }
 }

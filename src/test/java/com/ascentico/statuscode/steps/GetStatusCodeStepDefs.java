@@ -3,6 +3,7 @@ package com.ascentico.statuscode.steps;
 import com.ascentico.statuscode.controller.StatusCodeController;
 import com.ascentico.statuscode.model.StatusCode;
 import com.ascentico.statuscode.service.StatusCodeService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
@@ -16,6 +17,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
@@ -40,10 +44,15 @@ public class GetStatusCodeStepDefs {
 
     private Integer resultStatusCode;
 
+    private List<StatusCode> statusCodeList = new ArrayList<>();
+
     @Before
     public void setUp() throws Exception {
+
+        statusCodeList.add(statusCode226);
+
         MockitoAnnotations.initMocks(this);
-        when(mockStatusCodeService.findDistinctByStatusCodeEquals(226)).thenReturn(statusCode226);
+        when(mockStatusCodeService.findByStatusCodeEquals(226)).thenReturn(statusCodeList);
         mockMvc = MockMvcBuilders.standaloneSetup(mockedStatusCodeController).build();
     }
 
@@ -52,14 +61,14 @@ public class GetStatusCodeStepDefs {
 
         MvcResult result = mockMvc.perform(get("/api/v1/status/" + requestedStatusCode))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode", is(requestedStatusCode)))
+                .andExpect(jsonPath("$[0].statusCode", is(requestedStatusCode)))
                 .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
-        StatusCode statusCode = mapper.readValue(result.getResponse().getContentAsString(),
-                StatusCode.class);
+        List<StatusCode> statusCodeList = mapper.readValue(result.getResponse().getContentAsString(),
+                new TypeReference<List<StatusCode>>(){});
 
-        resultStatusCode = statusCode.getStatusCode();
+        resultStatusCode = statusCodeList.get(0).getStatusCode();
     }
 
     @When("a user makes a HTTP GET for invalid HTTP Status Code {int}")

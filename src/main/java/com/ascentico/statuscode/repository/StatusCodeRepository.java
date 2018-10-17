@@ -17,9 +17,12 @@ import java.util.List;
 
 public interface StatusCodeRepository extends CrudRepository<StatusCode, Integer> {
 
-    public StatusCode findDistinctByStatusCodeEquals(int statusCode);
+    public StatusCode findDistinctByStatusCodeIdEquals(int statusCodeId);
 
-    @Query(value = "SELECT * FROM public.sc_status_code", nativeQuery = true)
+    @Query(value = "SELECT * FROM public.sc_status_code WHERE status_code=:statusCode ORDER BY status_code", nativeQuery = true)
+    public List<StatusCode> findByStatusCodeEquals(@Param("statusCode") int statusCode);
+
+    @Query(value = "SELECT * FROM public.sc_status_code ORDER BY status_code", nativeQuery = true)
     public List<StatusCode> findAllStatusCodes();
 
     @Query(value = "SELECT * FROM public.sc_status_code ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
@@ -30,7 +33,5 @@ public interface StatusCodeRepository extends CrudRepository<StatusCode, Integer
 
     @Query(value = "SELECT * FROM public.sc_status_code WHERE CAST(status_code as TEXT) LIKE :requestedCategory%", nativeQuery = true)
     public List<StatusCode> findAllByStatusCodeStartsWith(@Param("requestedCategory") int requestedCategory);
-
-
 
 }

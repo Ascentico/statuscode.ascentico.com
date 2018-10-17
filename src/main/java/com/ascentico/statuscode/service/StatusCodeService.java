@@ -15,7 +15,8 @@ import java.util.List;
 public interface StatusCodeService {
 
     public void saveStatusCode(StatusCode statusCode);
-    public StatusCode findDistinctByStatusCodeEquals(int statusCode);
+    public StatusCode findDistinctByStatusCodeIdEquals(int statusCodeId);
+    public List<StatusCode> findByStatusCodeEquals(int statusCode);
     public List<StatusCode> findAllStatusCodes();
     public StatusCode findRandomStatusCode();
     public boolean ifExists(int statusCode);

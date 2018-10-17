@@ -32,8 +32,14 @@ public class StatusCodeServiceImpl implements StatusCodeService {
     }
 
     @Override
-    public StatusCode findDistinctByStatusCodeEquals(int statusCode) {
-        return statusCodeRepository.findDistinctByStatusCodeEquals(statusCode);
+    public StatusCode findDistinctByStatusCodeIdEquals(int statusCodeId) {
+        return statusCodeRepository.findDistinctByStatusCodeIdEquals( statusCodeId);
+    }
+
+    @Override
+    public List<StatusCode> findByStatusCodeEquals(int statusCode) {
+        List<StatusCode> statusCodeList = statusCodeRepository.findByStatusCodeEquals(statusCode);
+        return statusCodeList;
     }
 
     @Override

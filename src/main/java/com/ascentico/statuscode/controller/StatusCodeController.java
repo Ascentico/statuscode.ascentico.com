@@ -1,9 +1,9 @@
 package com.ascentico.statuscode.controller;
 
-import com.ascentico.statuscode.model.StatusCode;
-import com.ascentico.statuscode.model.StatusCodeOnlyListWrapper;
-import com.ascentico.statuscode.model.StatusCodeValidationWrapper;
+import com.ascentico.statuscode.model.*;
+import com.ascentico.statuscode.service.SoftwareService;
 import com.ascentico.statuscode.service.StatusCodeService;
+import com.ascentico.statuscode.service.StatusCodeTypeService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +25,22 @@ public class StatusCodeController {
             LoggerFactory.getLogger(StatusCodeController.class);
 
     StatusCodeService statusCodeService;
+    SoftwareService softwareService;
+    StatusCodeTypeService statusCodeTypeService;
 
     @Autowired
     public void setStatusCodeService(StatusCodeService statusCodeService) {
         this.statusCodeService = statusCodeService;
+    }
+
+    @Autowired
+    public void setSoftwareService(SoftwareService softwareService) {
+        this.softwareService = softwareService;
+    }
+
+    @Autowired
+    public void setStatusCodeTypeService(StatusCodeTypeService statusCodeTypeService) {
+        this.statusCodeTypeService = statusCodeTypeService;
     }
 
     @ApiOperation(value = "Read a single HTTP status code", notes = "Will return details of a single HTTP status code if the status code exists")
@@ -36,12 +48,13 @@ public class StatusCodeController {
     public @ResponseBody
     ResponseEntity<StatusCode> getStatusCode(@PathVariable int requestedStatusCode) {
 
-        StatusCode statusCode = statusCodeService.findDistinctByStatusCodeEquals(requestedStatusCode);
+        List<StatusCode> statusCodeList = statusCodeService.findByStatusCodeEquals(requestedStatusCode);
+
         ResponseEntity response;
 
-        if (statusCode != null) {
+        if (statusCodeList != null) {
             logger.debug("StatusCode found, returning OK");
-            response = new ResponseEntity<>(statusCode, HttpStatus.OK);
+            response = new ResponseEntity<>(statusCodeList, HttpStatus.OK);
         } else {
             logger.debug("StatusCode not found, returning NOT_FOUND");
             response = new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -79,12 +92,12 @@ public class StatusCodeController {
         List<StatusCode> statusCodeList = new ArrayList<>();
 
         for (Integer requestedStatusCode: requestedStatusCodeList) {
-            StatusCode statusCode;
+            List<StatusCode> temporyStatusCodeList;
 
-            statusCode = statusCodeService.findDistinctByStatusCodeEquals(requestedStatusCode);
+            temporyStatusCodeList = statusCodeService.findByStatusCodeEquals(requestedStatusCode);
 
-            if (statusCode != null) {
-                statusCodeList.add(statusCode);
+            if (temporyStatusCodeList != null) {
+                statusCodeList.addAll(temporyStatusCodeList);
             }
         }
 
@@ -120,7 +133,7 @@ public class StatusCodeController {
     ResponseEntity<StatusCodeValidationWrapper> validateStatusCode(@PathVariable int statusCodeToValidate) {
 
         StatusCodeValidationWrapper statusCodeValidationWrapper =
-                new StatusCodeValidationWrapper(statusCodeService.findDistinctByStatusCodeEquals(statusCodeToValidate));
+                new StatusCodeValidationWrapper(statusCodeService.findByStatusCodeEquals(statusCodeToValidate));
 
         ResponseEntity response = new ResponseEntity<>(statusCodeValidationWrapper, HttpStatus.OK);
 
@@ -141,6 +154,27 @@ public class StatusCodeController {
         if (statusCodeList != null) {
             logger.debug("Category found, returning OK");
             response = new ResponseEntity<>(statusCodeList, HttpStatus.OK);
+        } else {
+            logger.debug("Category not found, returning NOT_FOUND");
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        logger.debug("Leaving getCategory");
+
+        return response;
+    }
+
+    @RequestMapping(value = "/software/", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public @ResponseBody
+    ResponseEntity<Software> getSoftware() {
+
+        ResponseEntity response;
+
+        List<Software> softwareList = softwareService.findAllSoftware();
+
+        if (softwareList != null) {
+            logger.debug("Sofware found, returning OK");
+            response = new ResponseEntity<>(softwareList, HttpStatus.OK);
         } else {
             logger.debug("Category not found, returning NOT_FOUND");
             response = new ResponseEntity(HttpStatus.NOT_FOUND);

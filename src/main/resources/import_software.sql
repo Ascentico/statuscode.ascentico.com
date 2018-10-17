@@ -1,0 +1,11 @@
+INSERT INTO public.sc_software (software_id, software_name) VALUES (1, 'Apache Web Server');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (2, 'Laravel Framework');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (3, 'Spring Framework');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (4, 'Twitter');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (5, 'cPanel');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (6, 'ArcGIS for Server');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (7, 'Cloudflare');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (8, 'Cloud Foundry');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (9, 'Pantheon');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (10, 'Internet Information Services');
+INSERT INTO public.sc_software (software_id, software_name) VALUES (11, 'nginx');
