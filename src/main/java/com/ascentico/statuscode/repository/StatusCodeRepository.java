@@ -34,4 +34,13 @@ public interface StatusCodeRepository extends CrudRepository<StatusCode, Integer
     @Query(value = "SELECT * FROM public.sc_status_code WHERE CAST(status_code as TEXT) LIKE :requestedCategory%", nativeQuery = true)
     public List<StatusCode> findAllByStatusCodeStartsWith(@Param("requestedCategory") int requestedCategory);
 
+    @Query(value = "SELECT public.sc_status_code.*\n" +
+            "FROM public.sc_software\n" +
+            "INNER JOIN public.sc_software_status_code\n" +
+            "  ON public.sc_software_status_code.software_id = public.sc_software.software_id\n" +
+            "INNER JOIN public.sc_status_code\n" +
+            "  ON public.sc_status_code.status_code_id = public.sc_software_status_code.status_code_id\n" +
+            "WHERE public.sc_software.short_description ILIKE :shortDescription%", nativeQuery = true)
+    public List<StatusCode> findAllBySoftwareShortDescription(@Param("shortDescription") String shortDescription);
+
 }

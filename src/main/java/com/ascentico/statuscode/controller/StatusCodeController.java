@@ -140,6 +140,8 @@ public class StatusCodeController {
         return response;
     }
 
+
+
     @ApiOperation(value = "Read a category of HTTP status codes", notes = "Will return details of all HTTP status codes in the category if the status category exists, pass in a member of a category or the category as 2xx or 200")
     @RequestMapping(value = "/category/{requestedCategory}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public @ResponseBody
@@ -164,6 +166,7 @@ public class StatusCodeController {
         return response;
     }
 
+    @ApiOperation(value = "Read a list of software that uses unofficial HTTP status codes", notes = "Will return details of software that uses unofficial HTTP status codes")
     @RequestMapping(value = "/software/", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public @ResponseBody
     ResponseEntity<Software> getSoftware() {
@@ -181,6 +184,28 @@ public class StatusCodeController {
         }
 
         logger.debug("Leaving getCategory");
+
+        return response;
+    }
+
+    @ApiOperation(value = "Read a list of only the unofficial status codes used by software", notes = "Will return details of software that uses unofficial HTTP status codes")
+    @RequestMapping(value = "/software/{shortDescription}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public @ResponseBody
+    ResponseEntity<StatusCode> getStatusCodeForSoftware(@PathVariable String shortDescription) {
+
+        ResponseEntity response;
+
+        List<StatusCode> statusCodeList = statusCodeService.findAllBySoftwareShortDescription(shortDescription);
+
+        if (statusCodeList != null) {
+            logger.debug("Status Codes found, returning OK");
+            response = new ResponseEntity<>(statusCodeList, HttpStatus.OK);
+        } else {
+            logger.debug("Status Codes not found, returning NOT_FOUND");
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        logger.debug("Leaving getStatusCodeForSoftware");
 
         return response;
     }

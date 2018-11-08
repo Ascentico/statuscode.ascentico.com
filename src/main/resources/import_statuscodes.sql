@@ -62,7 +62,7 @@ INSERT INTO public.sc_status_code (status_code, long_description, short_descript
 INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (103,'Used in the resumable requests proposal to resume aborted PUT or POST requests.','Checkpoint',2);
 
 INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (218,'Used as a catch-all error condition for allowing response bodies to flow through Apache when ProxyErrorOverride is enabled. When ProxyErrorOverride is enabled in Apache, response bodies that contain a status code of 4xx or 5xx are automatically discarded by Apache in favor of a generic response or a custom response specified by the ErrorDocument directive.','This is fine',2);
-INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=218),1);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=218 AND short_description='This is fine'),1);
 
 INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (419,'Used by the Laravel Framework when a CSRF Token is missing or expired.','Page Expired',2);
 INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=419),2);
@@ -83,6 +83,27 @@ INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES (
 INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (526,'Used by Cloudflare and Cloud Foundry''s gorouter to indicate failure to validate the SSL/TLS certificate that the origin server presented.','Invalid SSL Certificate',2);
 INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=526),7);
 INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=526),8);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (520,'The 520 error is used as a "catch-all response for when the origin server returns something unexpected", listing connection resets, large headers, and empty or invalid responses as common triggers.','Unknown Error',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=520),7);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (521,'The origin server has refused the connection from Cloudflare.','Web Server Is Down',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=521),7);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (522,'Cloudflare could not negotiate a TCP handshake with the origin server.','Connection Timed Out',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=522),7);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (523,'Cloudflare could not reach the origin server; for example, if the DNS records for the origin server are incorrect.','Origin Is Unreachable',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=523),7);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (524,'Cloudflare was able to complete a TCP connection to the origin server, but did not receive a timely HTTP response.','A Timeout Occurred',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=524),7);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (525,'Cloudflare could not negotiate a SSL/TLS handshake with the origin server.','SSL Handshake Failed',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=525),7);
+
+INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (526,'Cloudflare could not validate the SSL certificate on the origin web server.','Invalid SSL Certificate',2);
+INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=526),7);
 
 INSERT INTO public.sc_status_code (status_code, long_description, short_description, status_code_type_id) VALUES (527,'Error 527 indicates that the request timed out or failed after the WAN connection had been established.','Railgun Error',2);
 INSERT INTO public.sc_software_status_code(status_code_id, software_id) VALUES ((SELECT status_code_id from public.sc_status_code WHERE status_code=527),7);

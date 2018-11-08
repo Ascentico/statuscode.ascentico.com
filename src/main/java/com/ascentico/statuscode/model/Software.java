@@ -19,15 +19,20 @@ public class Software {
     @JsonIgnore
     private int softwareId;
 
-    @ApiModelProperty(value = "Name of the software")
-    @Column(name = "softwareName")
-    private String softwareName;
+    @ApiModelProperty(value = "Short description of the software")
+    @Column(name = "shortDescription")
+    private String shortDescription;
+
+    @ApiModelProperty(value = "Long description of the software")
+    @Column(name = "longDescription", length = 1000)
+    private String longDescription;
 
     public Software() {
     }
 
-    public Software(String softwareName) {
-        this.softwareName = softwareName;
+    public Software(String shortDescription, String longDescription) {
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
     }
 
     public int getSoftwareId() {
@@ -38,12 +43,20 @@ public class Software {
         this.softwareId = softwareId;
     }
 
-    public String getSoftwareName() {
-        return softwareName;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setSoftwareName(String softwareName) {
-        this.softwareName = softwareName;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     @Override
@@ -52,19 +65,21 @@ public class Software {
         if (!(o instanceof Software)) return false;
         Software software = (Software) o;
         return getSoftwareId() == software.getSoftwareId() &&
-                Objects.equals(getSoftwareName(), software.getSoftwareName());
+                Objects.equals(getShortDescription(), software.getShortDescription()) &&
+                Objects.equals(getLongDescription(), software.getLongDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSoftwareId(), getSoftwareName());
+        return Objects.hash(getSoftwareId(), getShortDescription(), getLongDescription());
     }
 
     @Override
     public String toString() {
         return "Software{" +
                 "softwareId=" + softwareId +
-                ", softwareName='" + softwareName + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", longDescription='" + longDescription + '\'' +
                 '}';
     }
 }

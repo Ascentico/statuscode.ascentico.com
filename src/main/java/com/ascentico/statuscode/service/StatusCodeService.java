@@ -21,5 +21,6 @@ public interface StatusCodeService {
     public StatusCode findRandomStatusCode();
     public boolean ifExists(int statusCode);
     public List<StatusCode> findAllByCategoryMember(String requestedCategory);
+    public List<StatusCode> findAllBySoftwareShortDescription(String shortDescription);
 
 }

@@ -73,4 +73,9 @@ public class StatusCodeServiceImpl implements StatusCodeService {
         return statusCodeRepository.ifExists(statusCode);
     }
 
+    public List<StatusCode> findAllBySoftwareShortDescription(String shortDescription) {
+        return statusCodeRepository.findAllBySoftwareShortDescription(shortDescription);
+    }
+
+
 }
